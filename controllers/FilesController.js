@@ -150,8 +150,6 @@ class FilesController {
     const fileId = req.params.id;
     const { size } = req.query;
     const file = await dbClient.dbClient.collection('files').findOne({ _id: ObjectId(fileId) });
-    // file private and user not signin
-    // file private and user is sign in but not the owner
     if (!file || (!file.isPublic && (!userId || userId !== file.userId.toString()))) {
       return res.status(404).json({ error: 'Not found' });
     }
